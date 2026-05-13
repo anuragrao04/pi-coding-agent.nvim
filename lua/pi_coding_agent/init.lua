@@ -152,11 +152,13 @@ function M.send_selection()
     return
   end
 
-  local start_line = vim.fn.line("'<")
-  local end_line = vim.fn.line("'>")
+  local visual_start = vim.fn.getpos("v")
+  local cursor = vim.fn.getpos(".")
+  local start_line = visual_start[2]
+  local end_line = cursor[2]
 
   if not start_line or not end_line or start_line == 0 or end_line == 0 then
-    vim.notify("[pi-coding-agent] No visual selection", vim.log.levels.WARN)
+    vim.notify("[pi-coding-agent] No active visual selection", vim.log.levels.WARN)
     return
   end
 
